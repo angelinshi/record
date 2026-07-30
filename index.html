@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="《血之游戏 X》20 位嘉宾的队伍、履历、收入与关系网络图。">
+  <title>血之游戏 X｜全员档案与关系网络</title>
+  <style>
+    :root{
+      --bg:#09090a;--panel:#111113;--panel2:#171719;--ink:#f4f1ec;--muted:#96928d;
+      --line:#2b2928;--red:#ff3a32;--red2:#8d1717;--gold:#d9b466;--green:#91c788;
+      --p1:#f04b3e;--p2:#f2a93b;--p3:#d96aff;--c:#4bc1ff;--r:#76d079;
+      --sans:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+      --serif:"Noto Serif SC","Songti SC",serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.24;background:
+      radial-gradient(circle at 82% 7%,rgba(255,58,50,.22),transparent 25%),
+      radial-gradient(circle at 8% 42%,rgba(217,180,102,.08),transparent 22%),
+      linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+      background-size:auto,auto,32px 32px,32px 32px}
+    a{color:inherit}
+    button,input{font:inherit}
+    .shell{width:min(1440px,calc(100% - 40px));margin:auto}
+    .topbar{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:relative;z-index:3}
+    .brand{display:flex;gap:11px;align-items:center;font-weight:850;letter-spacing:.12em}
+    .mark{width:23px;height:23px;background:var(--red);clip-path:polygon(42% 0,100% 0,65% 46%,100% 100%,50% 74%,0 100%,29% 48%,0 0)}
+    .nav{display:flex;gap:26px;color:var(--muted);font-size:13px}
+    .nav a{text-decoration:none}.nav a:hover{color:var(--ink)}
+    .hero{min-height:610px;display:grid;grid-template-columns:1.13fr .87fr;align-items:end;padding:70px 0 62px;border-bottom:1px solid var(--line);position:relative}
+    .kicker{font-size:12px;text-transform:uppercase;letter-spacing:.22em;color:var(--red);font-weight:800}
+    h1{font-family:var(--serif);font-size:clamp(64px,9vw,146px);line-height:.79;margin:28px 0 30px;letter-spacing:-.075em;max-width:850px}
+    h1 span{color:transparent;-webkit-text-stroke:1px #8d8983}
+    .lede{font-family:var(--serif);font-size:clamp(18px,2vw,27px);line-height:1.62;max-width:620px;color:#c9c4bd}
+    .hero-side{display:flex;align-items:flex-end;justify-content:flex-end}
+    .stat-grid{width:min(480px,100%);display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line)}
+    .stat{padding:24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .stat:nth-child(2n){border-right:0}.stat:nth-last-child(-n+2){border-bottom:0}
+    .stat strong{display:block;font-family:var(--serif);font-size:42px;line-height:1;color:var(--ink)}
+    .stat span{display:block;color:var(--muted);font-size:12px;margin-top:9px;letter-spacing:.08em}
+    .notice{margin-top:18px;font-size:12px;line-height:1.6;color:var(--muted);max-width:480px}
+    section{padding:82px 0;border-bottom:1px solid var(--line)}
+    .section-head{display:flex;justify-content:space-between;gap:40px;align-items:end;margin-bottom:34px}
+    .eyebrow{color:var(--red);font-size:12px;font-weight:800;letter-spacing:.2em}
+    h2{font-family:var(--serif);font-size:clamp(38px,5vw,72px);letter-spacing:-.045em;margin:10px 0 0}
+    .section-copy{max-width:520px;color:var(--muted);line-height:1.7;font-size:14px}
+    .filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+    .filter{border:1px solid var(--line);background:transparent;color:#aaa49d;border-radius:999px;padding:9px 15px;cursor:pointer;transition:.2s}
+    .filter:hover,.filter.active{color:#0b0b0b;background:var(--ink);border-color:var(--ink)}
+    .team-block{margin:52px 0 0}
+    .team-title{display:grid;grid-template-columns:86px 1fr auto;align-items:end;gap:20px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+    .team-code{font-family:var(--serif);font-size:54px;line-height:.9}
+    .team-name{font-size:20px;font-weight:800}.team-desc{color:var(--muted);font-size:13px}
+    .team-income{font-size:12px;color:var(--muted);text-align:right}.team-income strong{display:block;font-family:var(--serif);font-size:24px;color:var(--ink)}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+    .card{background:var(--panel);padding:0 24px 24px;min-height:605px;display:flex;flex-direction:column;position:relative;transition:.2s;overflow:hidden}
+    .card:hover{background:var(--panel2);transform:translateY(-2px);z-index:2}
+    .portrait{height:240px;margin:0 -24px 22px;display:block;position:relative;overflow:hidden;isolation:isolate;filter:saturate(.84) contrast(1.06);transition:filter .2s,transform .35s}
+    .portrait:before{content:"";position:absolute;z-index:0;left:50%;top:50%;width:2484px;height:3105px;background:url("assets/cast/cast-grid.jpg") 0 0/100% 100% no-repeat;transform:translate(var(--photo-x),var(--photo-y));pointer-events:none}
+    .portrait:after{content:"WAVVE CAST FILE";position:absolute;z-index:1;inset:0;display:flex;align-items:flex-end;padding:0 14px 12px;background:linear-gradient(180deg,transparent 58%,rgba(9,9,10,.9));font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.72);pointer-events:none}
+    .card:hover .portrait{filter:saturate(1.04) contrast(1.04);transform:scale(1.015)}
+    .card-top{display:flex;justify-content:space-between;gap:10px}
+    .avatar{width:38px;height:38px;border:1px solid #403d3a;display:grid;place-items:center;font-family:var(--serif);font-size:15px;background:#0c0c0d}
+    .role{font-size:11px;color:var(--muted);text-align:right;line-height:1.5}
+    .name{font-family:var(--serif);font-size:30px;margin:24px 0 6px;letter-spacing:-.04em}
+    .roman{font-size:10px;color:#696662;letter-spacing:.12em;text-transform:uppercase}
+    .income{margin:22px 0 17px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .income-label{font-size:10px;color:var(--muted);letter-spacing:.12em}.income-value{font-family:var(--serif);font-size:24px;margin-top:6px}
+    .income-source{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5}
+    .history{font-size:13px;line-height:1.7;color:#c8c3bc;margin:0}
+    .achievement{margin-top:auto;padding-top:19px;font-size:12px;line-height:1.55;color:var(--gold)}
+    .network-wrap{display:grid;grid-template-columns:minmax(0,1fr) 320px;border:1px solid var(--line);background:#0d0d0e;min-height:720px}
+    .canvas-wrap{position:relative;min-height:720px;overflow:hidden}
+    canvas{width:100%;height:100%;display:block;cursor:crosshair;touch-action:pan-y}
+    .net-legend{position:absolute;left:18px;top:16px;display:flex;gap:13px;flex-wrap:wrap;background:rgba(9,9,10,.78);padding:10px 12px;font-size:11px;color:var(--muted);backdrop-filter:blur(8px)}
+    .legend-item{display:flex;align-items:center;gap:6px}.dash{width:20px;border-top:2px solid #555}.dash.old{border-color:var(--gold)}.dash.circle{border-color:#65b6dd;border-top-style:dashed}
+    .network-aside{border-left:1px solid var(--line);padding:26px;display:flex;flex-direction:column}
+    .aside-kicker{font-size:10px;color:var(--red);letter-spacing:.18em;font-weight:800}
+    .aside-name{font-family:var(--serif);font-size:36px;margin:12px 0 8px}
+    .aside-meta{font-size:12px;color:var(--muted)}
+    .relation-list{margin-top:28px;display:grid;gap:10px}
+    .rel{border-top:1px solid var(--line);padding-top:11px;font-size:12px;line-height:1.55;color:#c5c0b9}
+    .rel b{color:var(--ink)}
+    .rel-types{display:flex;gap:5px;flex-wrap:wrap;margin:7px 0}
+    .rel-type{font-size:9px;letter-spacing:.08em;padding:3px 6px;border:1px solid #45413d;color:var(--gold)}
+    .network-tip{margin-top:auto;color:var(--muted);font-size:11px;line-height:1.6;border-top:1px solid var(--line);padding-top:16px}
+    .table-scroll{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .income-table{width:100%;border-collapse:collapse;border:1px solid var(--line);font-size:13px}
+    .income-table th,.income-table td{padding:15px 17px;border-bottom:1px solid var(--line);text-align:left}
+    .income-table th{font-size:10px;color:var(--muted);letter-spacing:.12em;background:#101011}
+    .income-table tr:last-child td{border-bottom:0}.income-table td:nth-child(3){font-family:var(--serif);font-size:18px}
+    .source-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .source{padding:18px;border:1px solid var(--line);text-decoration:none;transition:.2s}
+    .source:hover{border-color:#69635d;background:var(--panel)}
+    .source b{display:block;font-size:13px;margin-bottom:7px}.source span{font-size:11px;color:var(--muted);line-height:1.5}
+    .method{font-size:12px;line-height:1.8;color:var(--muted);margin-top:24px;max-width:900px}
+    footer{padding:36px 0 50px;display:flex;justify-content:space-between;gap:30px;color:#696662;font-size:11px}
+    .hidden{display:none!important}
+    @media(max-width:1050px){
+      .hero{grid-template-columns:1fr;gap:50px}.hero-side{justify-content:flex-start}
+      .cards{grid-template-columns:repeat(2,1fr)}.network-wrap{grid-template-columns:1fr}.network-aside{border-left:0;border-top:1px solid var(--line)}
+      .source-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:680px){
+      .shell{width:calc(100% - 24px)}
+      .topbar{height:58px}
+      .brand{font-size:11px;letter-spacing:.07em;gap:8px}.mark{width:18px;height:18px}
+      .nav{display:none}
+      .hero{min-height:auto;padding:38px 0 44px;gap:30px}
+      .kicker{font-size:10px;letter-spacing:.16em}
+      h1{font-size:clamp(50px,16vw,68px);line-height:.84;margin:22px 0 24px}
+      .lede{font-size:17px;line-height:1.58}
+      .hero-side,.stat-grid{width:100%}
+      .stat{padding:16px}.stat strong{font-size:32px}.stat span{font-size:10px}
+      .notice{font-size:11px}
+      section{padding:56px 0}
+      .section-head{display:block;margin-bottom:26px}
+      .section-copy{margin-top:16px;font-size:13px}
+      h2{font-size:42px}
+      .filters{margin:0 -12px 22px;padding:0 12px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+      .filters::-webkit-scrollbar{display:none}
+      .filter{flex:0 0 auto;min-height:42px;padding:9px 16px;touch-action:manipulation}
+      .team-block{margin-top:38px}
+      .team-title{grid-template-columns:54px 1fr;gap:12px;padding-top:14px}
+      .team-code{font-size:42px}.team-name{font-size:18px}.team-desc{font-size:12px}
+      .team-income{grid-column:1/-1;text-align:left;padding-top:11px;border-top:1px solid var(--line)}
+      .team-income strong{font-size:21px}
+      .cards{grid-template-columns:1fr}
+      .card{min-height:0;padding:0 20px 22px}
+      .portrait{height:220px;margin:0 -20px 20px}
+      .card:hover{transform:none}.card:hover .portrait{transform:none}
+      .name{font-size:29px;margin-top:20px}
+      .income{margin:18px 0 15px}.income-value{font-size:23px}
+      .network-wrap{grid-template-columns:1fr;min-height:0}
+      .canvas-wrap{min-height:500px;height:500px}
+      .net-legend{left:8px;right:8px;top:8px;gap:8px;padding:8px;font-size:10px}
+      .network-aside{padding:20px;min-height:330px}
+      .aside-name{font-size:31px}.relation-list{margin-top:22px}
+      .table-scroll{margin:0 -12px;width:calc(100% + 24px);padding:0 12px}
+      .income-table{min-width:650px}
+      .income-table th,.income-table td{padding:12px 13px;white-space:nowrap}
+      .source-grid{grid-template-columns:1fr}
+      .source{padding:16px}
+      footer{display:block;padding:28px 0 38px;line-height:1.9}
+      footer span{display:block}
+    }
+    @media(max-width:390px){
+      h1{font-size:50px}
+      h2{font-size:38px}
+      .stat strong{font-size:28px}
+      .portrait{height:205px}
+      .canvas-wrap{height:460px;min-height:460px}
+      .network-aside{padding:18px}
+    }
+    @media(hover:none){
+      .card:hover{background:var(--panel);transform:none}
+      .card:hover .portrait{filter:saturate(.84) contrast(1.06);transform:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="shell topbar">
+    <div class="brand"><span class="mark"></span> BLOODY GAME X / CAST FILE</div>
+    <nav class="nav"><a href="#teams">队伍档案</a><a href="#network">关系网络</a><a href="#income">收入口径</a><a href="#sources">资料来源</a></nav>
+  </header>
+
+  <main>
+    <div class="shell hero">
+      <div>
+        <div class="kicker">The ultimate crossover · 2026</div>
+        <h1>血之游戏<br><span>全员档案</span></h1>
+        <p class="lede">五支队伍，二十位玩家。一张图读懂他们从哪里来、靠什么赢，以及在进入游戏前已经存在的关系。</p>
+      </div>
+      <div class="hero-side">
+        <div>
+          <div class="stat-grid">
+            <div class="stat"><strong>5</strong><span>支参赛队伍</span></div>
+            <div class="stat"><strong>20</strong><span>位正式玩家</span></div>
+            <div class="stat"><strong>3</strong><span>代《血之游戏》老将</span></div>
+            <div class="stat"><strong>15亿₩</strong><span>已报道个人最高年收入</span></div>
+          </div>
+          <div class="notice">收入均来自第 1 期公开的 2025 年收入信息，并按节目给出的综合所得税课税区间换算为队伍资金；不是净资产，也不是本站估算。</div>
+        </div>
+      </div>
+    </div>
+
+    <section id="teams">
+      <div class="shell">
+        <div class="section-head">
+          <div><div class="eyebrow">01 / TEAM FILES</div><h2>五队二十人</h2></div>
+          <div class="section-copy">P1—P3 是前三季世界观的回归队；C 队由其他生存综艺强者组成；R 队则把体育、喜剧、恋综和高智商新人放进同一只压力锅。</div>
+        </div>
+        <div class="filters" id="filters"></div>
+        <div id="teams-root"></div>
+      </div>
+    </section>
+
+    <section id="network">
+      <div class="shell">
+        <div class="section-head">
+          <div><div class="eyebrow">02 / CONNECTION MAP</div><h2>赛前关系网络</h2></div>
+          <div class="section-copy">点击节点，查看一位玩家的直接关系。网络只记录可验证的“同队 / 旧节目共演 / 职业圈层”，不把节目剪辑中的临时站队当成长期关系。</div>
+        </div>
+        <div class="network-wrap">
+          <div class="canvas-wrap">
+            <canvas id="network-canvas" aria-label="嘉宾关系网络交互图"></canvas>
+            <div class="net-legend">
+              <span class="legend-item"><i class="dash"></i>本季同队</span>
+              <span class="legend-item"><i class="dash old"></i>旧节目共演</span>
+              <span class="legend-item"><i class="dash circle"></i>职业圈层</span>
+            </div>
+          </div>
+          <aside class="network-aside" id="network-aside"></aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="income">
+      <div class="shell">
+        <div class="section-head">
+          <div><div class="eyebrow">03 / INCOME NOTE</div><h2>收入：只放有出处的数字</h2></div>
+          <div class="section-copy">第 1 期使用“2025 年综合所得税课税标准”生成队伍资金。下表同时列出 20 人的节目收入和对应资金换算，便于直接比较。</div>
+        </div>
+        <div class="table-scroll"><table class="income-table" id="income-table"></table></div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="shell">
+        <div class="section-head">
+          <div><div class="eyebrow">04 / SOURCES</div><h2>资料与口径</h2></div>
+          <div class="section-copy">页面依据节目官方/主流媒体报道整理，职业与节目履历采用“代表性而非穷尽式”列举。资料更新至 2026-07-30。</div>
+        </div>
+      <div class="source-grid">
+          <a class="source" target="_blank" rel="noreferrer" href="https://d.namu.moe/w/%ED%94%BC%EC%9D%98%20%EA%B2%8C%EC%9E%84X/1-2%EC%9D%BC%EC%B0%A8"><b>第 1—2 日资料页｜全员收入表</b><span>20 位玩家的 2025 年收入、税收区间换算与各队初始资金。</span></a>
+          <a class="source" target="_blank" rel="noreferrer" href="https://enews.imbc.com/News/RetrieveNewsInfo/507147"><b>iMBC｜20 人阵容公开</b><span>挑战者队与新人队的身份、代表节目及履历。</span></a>
+          <a class="source" target="_blank" rel="noreferrer" href="https://www.mk.co.kr/cn/hot-issues/12086307"><b>每日经济｜制作人专访</b><span>五队结构、P1—P3 队员与节目设定。</span></a>
+          <a class="source" target="_blank" rel="noreferrer" href="https://www.nocutnews.co.kr/news/6544610"><b>No Cut News｜收入机制</b><span>2025 年个人所得与队伍资金的节目规则。</span></a>
+          <a class="source" target="_blank" rel="noreferrer" href="https://biz.chosun.com/entertainment/enter_general/2026/07/05/HAZDOYRWG4ZDOZDEGJQWIMJYGM/?outputType=amp"><b>朝鲜 Biz｜P1 收入公开</b><span>李尚敏 15 亿韩元及 P1 成员公开收入。</span></a>
+          <a class="source" target="_blank" rel="noreferrer" href="https://www.bntnews.co.kr/article/view/bnt202607040033"><b>bnt News｜首集收入环节</b><span>收入公开、队伍资金选择与关键旧关系。</span></a>
+          <a class="source" target="_blank" rel="noreferrer" href="https://www.yna.co.kr/view/AKR20230531156500005"><b>韩联社｜《血之游戏 2》</b><span>第二季成员共演与节目影响力背景。</span></a>
+        </div>
+        <p class="method">说明：韩文姓名采用常见中文译名，并在卡片保留罗马字。收入为第 1 期画面公开的 2025 年收入，不等同于净资产；郭范 5 亿韩元在节目画面中换算为 1.2 亿队伍资金，资料页指出按“超过 5 亿”门槛计算可能应为 9000 万，因此页面保留节目画面值并特别标注。关系网展示的是进入《血之游戏 X》之前已经存在的公开交集。</p>
+      </div>
+    </section>
+  </main>
+  <footer class="shell"><span>非官方资料页 · BLOODY GAME X CAST FILE</span><span>更新：2026-07-30 · 金额单位：韩元（₩）</span></footer>
+
+  <script>
+  const people = [
+    {id:"lsm",team:"P1",name:"李尚敏",roman:"Lee Sang-min",role:"艺人 · 音乐制作人",photo:[324,380],income:"15亿₩",incomeN:1500000000,fund:"1.5亿₩",source:"第 1 期公开的 2025 年收入",history:"《The Genius 1·2·4》《The Genius：规则破坏者》《认识的哥哥》",achievement:"Roo'ra 核心成员；《The Genius 2》冠军；资深综艺战略型玩家"},
+    {id:"jgw",team:"P1",name:"郑根宇",roman:"Jung Keun-woo",role:"前职业棒球选手 · 解说",photo:[540,380],income:"2亿₩",incomeN:200000000,fund:"7000万₩",source:"第 1 期公开的 2025 年收入",history:"《血之游戏 1》《最强棒球》等体育综艺",achievement:"2008 北京奥运棒球金牌；2010 广州亚运金牌；KBO 代表性二垒手"},
+    {id:"pjm",team:"P1",name:"朴智敏",roman:"Park Ji-min",role:"播音员 · 主持人",photo:[756,380],income:"8000万₩",incomeN:80000000,fund:"3000万₩",source:"第 1 期公开的 2025 年收入",history:"《血之游戏 1》《血之游戏 2》",achievement:"MBC 播音员出身；第一季以高强度社交与联盟打法进入后段"},
+    {id:"ltg",team:"P1",name:"李泰均",roman:"Lee Tae-gyun",role:"警察",photo:[972,380],income:"5000万₩",incomeN:50000000,fund:"2000万₩",source:"第 1 期公开的 2025 年收入",history:"《血之游戏 1》",achievement:"《血之游戏 1》最终冠军；首尔大学行政研究生院政策学背景"},
+
+    {id:"hsj",team:"P2",name:"河升镇",roman:"Ha Seung-jin",role:"前职业篮球选手 · 创作者",photo:[324,594],income:"1亿₩",incomeN:100000000,fund:"5000万₩",source:"第 1 期公开的 2025 年收入",history:"《血之游戏 2》《大韩外援》等",achievement:"首位进入 NBA 的韩国球员；KBL 两届总冠军"},
+    {id:"hsg",team:"P2",name:"玄成柱",roman:"Hyun Sung-joo",role:"职业扑克选手",photo:[540,594],income:"2亿₩",incomeN:200000000,fund:"7000万₩",source:"第 1 期公开的 2025 年收入",history:"《血之游戏 2》；WSOP 等扑克赛事",achievement:"2021 Wynn Classic 赛事冠军经历；多次参加 WSOP"},
+    {id:"yunb",team:"P2",name:"YunB",roman:"YunB",role:"说唱歌手",photo:[756,594],income:"1.4亿₩",incomeN:140000000,fund:"5000万₩",source:"第 1 期公开的 2025 年收入",history:"《Show Me the Money 5·6·8》《血之游戏 2》",achievement:"纽约大学哲学背景；兼具格斗训练经历的全能型玩家"},
+    {id:"ljh",team:"P2",name:"李真衡",roman:"Lee Jin-hyeong",role:"医生",photo:[972,594],income:"750万₩",incomeN:7500000,fund:"1000万₩",source:"第 1 期公开的 2025 年收入",history:"《血之游戏 2》",achievement:"《血之游戏 2》最终冠军；首尔大学医学背景"},
+
+    {id:"hjh",team:"P3",name:"洪榛浩",roman:"Hong Jin-ho",role:"职业扑克选手 · 前电竞选手",photo:[324,808],income:"1亿₩",incomeN:100000000,fund:"5000万₩",source:"第 1 期公开的 2025 年收入",history:"《The Genius 1·2·4》《The Time Hotel》《血之游戏 2·3》",achievement:"《The Genius 1》冠军；星际争霸传奇选手；多项扑克赛事成绩"},
+    {id:"scg",team:"P3",name:"徐出口",roman:"Seo Chul-goo / Xitsuh",role:"说唱歌手",photo:[540,808],income:"8000万₩",incomeN:80000000,fund:"3000万₩",source:"第 1 期公开的 2025 年收入",history:"《Show Me the Money》《Penthouse》《血之游戏 2·3》",achievement:"以快速计算、语言博弈和高机动联盟能力见长"},
+    {id:"chs",team:"P3",name:"崔慧善",roman:"Choi Hye-seon",role:"数据专业人士 · 模特",photo:[756,808],income:"1亿₩",incomeN:100000000,fund:"5000万₩",source:"第 1 期公开的 2025 年收入",history:"《单身即地狱 3》《血之游戏 3》",achievement:"梨花女大生命科学学士、杜伦大学硕士；兼具分析与社交能力"},
+    {id:"hsb",team:"P3",name:"许成范",roman:"Heo Seong-beom",role:"AI 研究员 · 创作者",photo:[972,808],income:"2亿₩",incomeN:200000000,fund:"7000万₩",source:"第 1 期公开的 2025 年收入",history:"《大学战争》《血之游戏 3》《The Influencer》",achievement:"KAIST AI 研究背景；《血之游戏 3》后段核心脑力玩家"},
+
+    {id:"kkh",team:"C",name:"金景勋",roman:"Kim Kyung-hoon",role:"企业经营者",photo:[324,1022],income:"1亿₩",incomeN:100000000,fund:"5000万₩",source:"第 1 期公开的 2025 年收入",history:"《The Genius 3·4》",achievement:"《The Genius 4》亚军；擅长高波动决策与反直觉博弈"},
+    {id:"kyh",team:"C",name:"金宥贤",roman:"Kim Yoo-hyun",role:"职业扑克选手",photo:[540,1022],income:"1.7亿₩",incomeN:170000000,fund:"7000万₩",source:"第 1 期公开的 2025 年收入",history:"《The Genius 3·4》《The Time Hotel》",achievement:"横跨《The Genius》与《The Time Hotel》的职业牌手型玩家"},
+    {id:"knh",team:"C",name:"金南熙",roman:"Kim Nam-hee",role:"前播音员 · 主持人",photo:[756,1022],income:"1.6亿₩",incomeN:160000000,fund:"7000万₩",source:"第 1 期公开的 2025 年收入",history:"《The Time Hotel》",achievement:"IQ 156、门萨会员；以信息整理与分析能力著称"},
+    {id:"kjh",team:"C",name:"姜智厚",roman:"Kang Ji-hoo",role:"KAIST 数理科学在读",photo:[972,1022],income:"1亿₩",incomeN:100000000,fund:"5000万₩",source:"第 1 期公开的 2025 年收入",history:"《大学战争 3》",achievement:"《大学战争 3》第三名；年轻一代竞赛型脑力选手"},
+
+    {id:"kb",team:"R",name:"郭范",roman:"Kwak Beom",role:"喜剧演员 · 创作者",photo:[324,1236],income:"5亿₩",incomeN:500000000,fund:"1.2亿₩（节目画面）",source:"第 1 期公开的 2025 年收入",history:"《喜剧大联盟》及多档网络喜剧内容",achievement:"成熟的即兴表达与群体气氛控制；R 队公开收入最高者"},
+    {id:"lgh",team:"R",name:"李官熙",roman:"Lee Gwan-hee",role:"职业篮球选手",photo:[540,1236],income:"3亿₩",incomeN:300000000,fund:"7000万₩",source:"第 1 期公开的 2025 年收入",history:"《单身即地狱 3》；KBL 职业联赛",achievement:"KBL 长期职业生涯；恋综出身但拥有顶级竞技体育经验"},
+    {id:"ssy",team:"R",name:"申承勇",roman:"Shin Seung-yong",role:"医生",photo:[756,1236],income:"1.5亿₩",incomeN:150000000,fund:"5000万₩",source:"第 1 期公开的 2025 年收入",history:"《换乘恋爱 4》",achievement:"首尔大学医学背景；恋综之后首次进入硬核生存赛道"},
+    {id:"cyc",team:"R",name:"崔妍清",roman:"Choi Yeon-cheong",role:"演员 · 模特",photo:[972,1236],income:"2.5亿₩",incomeN:250000000,fund:"7000万₩",source:"第 1 期公开的 2025 年收入",history:"影视剧与演艺活动；首次参加生存综艺",achievement:"门萨会员；以高智商新人身份进入 R 队"}
+  ];
+
+  const teamInfo = {
+    P1:{name:"第一季世界观队",desc:"经验、统率与心理战",color:"#f04b3e"},
+    P2:{name:"第二季回归队",desc:"体能、牌桌与冠军底盘",color:"#f2a93b"},
+    P3:{name:"第三季回归队",desc:"高密度脑力与成熟联盟",color:"#d96aff"},
+    C:{name:"挑战者队",desc:"其他生存综艺全明星",color:"#4bc1ff"},
+    R:{name:"新人队",desc:"没有《血之游戏》旧账的变量",color:"#76d079"}
+  };
+
+  const explicit = [
+    ["lsm","hjh","旧节目共演","《The Genius 1》"],
+    ["lsm","kkh","旧节目共演","《The Genius 4》"],
+    ["lsm","kyh","旧节目共演","《The Genius 4》"],
+    ["hjh","kkh","旧节目共演","《The Genius 4》"],
+    ["hjh","kyh","旧节目共演","《The Genius 4》"],
+    ["kkh","kyh","旧节目共演","《The Genius 3·4》"],
+    ["kyh","knh","旧节目共演","《The Time Hotel》"],
+    ["pjm","hsj","旧节目共演","《血之游戏 2》"],
+    ["pjm","hsg","旧节目共演","《血之游戏 2》"],
+    ["pjm","yunb","旧节目共演","《血之游戏 2》"],
+    ["pjm","ljh","旧节目共演","《血之游戏 2》"],
+    ["pjm","hjh","旧节目共演","《血之游戏 2》"],
+    ["pjm","scg","旧节目共演","《血之游戏 2》"],
+    ["hsj","hjh","旧节目共演","《血之游戏 2》"],
+    ["hsg","hjh","旧节目共演","《血之游戏 2》"],
+    ["yunb","hjh","旧节目共演","《血之游戏 2》"],
+    ["ljh","hjh","旧节目共演","《血之游戏 2》"],
+    ["hsj","scg","旧节目共演","《血之游戏 2》"],
+    ["hsg","scg","旧节目共演","《血之游戏 2》"],
+    ["yunb","scg","旧节目共演","《血之游戏 2》"],
+    ["ljh","scg","旧节目共演","《血之游戏 2》"],
+    ["hjh","scg","旧节目共演","《血之游戏 2·3》"],
+    ["hjh","chs","旧节目共演","《血之游戏 3》"],
+    ["hjh","hsb","旧节目共演","《血之游戏 3》"],
+    ["scg","chs","旧节目共演","《血之游戏 3》"],
+    ["scg","hsb","旧节目共演","《血之游戏 3》"],
+    ["chs","hsb","旧节目共演","《血之游戏 3》"],
+    ["chs","lgh","旧节目共演","《单身即地狱 3》"],
+    ["hsb","kjh","职业圈层","《大学战争》校际脑力赛背景"],
+    ["hsj","lgh","职业圈层","韩国职业篮球圈；曾就篮球议题公开互动"],
+    ["hjh","hsg","职业圈层","职业扑克圈"],
+    ["hjh","kyh","职业圈层","职业扑克圈"],
+    ["hsg","kyh","职业圈层","职业扑克圈"]
+  ];
+
+  const teamEdges = [];
+  Object.keys(teamInfo).forEach(t=>{
+    const ids=people.filter(p=>p.team===t).map(p=>p.id);
+    for(let i=0;i<ids.length;i++) for(let j=i+1;j<ids.length;j++) teamEdges.push([ids[i],ids[j],"本季同队",teamInfo[t].name]);
+  });
+  const edges=[...teamEdges,...explicit];
+
+  const root=document.getElementById("teams-root");
+  const filters=document.getElementById("filters");
+  ["ALL","P1","P2","P3","C","R"].forEach((t,i)=>{
+    const b=document.createElement("button");b.className="filter"+(i===0?" active":"");b.textContent=t==="ALL"?"全部队伍":`${t} 队`;
+    b.onclick=()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+      document.querySelectorAll(".team-block").forEach(x=>x.classList.toggle("hidden",t!=="ALL"&&x.dataset.team!==t));};
+    filters.appendChild(b);
+  });
+
+  Object.entries(teamInfo).forEach(([code,info])=>{
+    const members=people.filter(p=>p.team===code);
+    const known=members.filter(p=>p.incomeN!==null).reduce((a,b)=>a+b.incomeN,0);
+    const el=document.createElement("div");el.className="team-block";el.dataset.team=code;
+    el.innerHTML=`<div class="team-title" style="border-top:3px solid ${info.color};padding-top:18px">
+      <div class="team-code" style="color:${info.color}">${code}</div><div><div class="team-name">${info.name}</div><div class="team-desc">${info.desc}</div></div>
+      <div class="team-income">全队公开收入合计<strong>${known?formatWon(known):"—"}</strong></div></div>
+      <div class="cards">${members.map(cardHTML).join("")}</div>`;
+    root.appendChild(el);
+  });
+
+  function cardHTML(p){
+    return `<article class="card"><div class="portrait" role="img" aria-label="${p.name} 官方人物照" title="${p.name}｜Wavve《血之游戏 X》人物名单图" style="--photo-x:-${p.photo[0]*2.3}px;--photo-y:-${p.photo[1]*2.3}px"></div><div class="card-top"><div class="avatar" style="border-color:${teamInfo[p.team].color};color:${teamInfo[p.team].color}">${p.name.slice(-1)}</div><div class="role">${p.role.replace(" · ","<br>")}</div></div>
+      <div class="name">${p.name}</div><div class="roman">${p.roman}</div>
+      <div class="income"><div class="income-label">2025 INCOME / 收入</div><div class="income-value">${p.income}</div><div class="income-source">${p.source} · 换算资金 ${p.fund}</div></div>
+      <p class="history"><b>代表节目</b><br>${p.history}</p><div class="achievement">${p.achievement}</div></article>`;
+  }
+  function formatWon(n){return n>=100000000?`${(n/100000000).toFixed(n%100000000?1:0)}亿₩`:`${n/10000}万₩`}
+
+  document.getElementById("income-table").innerHTML=`<thead><tr><th>嘉宾</th><th>队伍</th><th>第 1 期公开的 2025 收入</th><th>税收区间换算资金</th></tr></thead><tbody>`+
+    people.slice().sort((a,b)=>b.incomeN-a.incomeN).map(p=>`<tr><td>${p.name}</td><td style="color:${teamInfo[p.team].color}">${p.team}</td><td>${p.income}</td><td style="color:#96928d">${p.fund}</td></tr>`).join("")+`</tbody>`;
+
+  const canvas=document.getElementById("network-canvas"),ctx=canvas.getContext("2d"),wrap=canvas.parentElement,aside=document.getElementById("network-aside");
+  let nodes=[],selected="hjh",hover=null,dpr=window.devicePixelRatio||1;
+  function layout(){
+    const r=wrap.getBoundingClientRect();canvas.width=r.width*dpr;canvas.height=r.height*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    const centers={P1:[.18,.25],P2:[.5,.18],P3:[.79,.30],C:[.27,.69],R:[.69,.73]};
+    nodes=people.map((p,i)=>{
+      const peers=people.filter(x=>x.team===p.team),idx=peers.findIndex(x=>x.id===p.id);
+      const angle=(Math.PI*2/4)*idx-.7,rad=Math.min(r.width,r.height)*.105;
+      return {...p,x:centers[p.team][0]*r.width+Math.cos(angle)*rad,y:centers[p.team][1]*r.height+Math.sin(angle)*rad,rad:17};
+    });draw();
+  }
+  function draw(){
+    const w=canvas.width/dpr,h=canvas.height/dpr;ctx.clearRect(0,0,w,h);
+    const active=selected||hover;
+    edges.forEach(e=>{
+      const a=nodes.find(n=>n.id===e[0]),b=nodes.find(n=>n.id===e[1]);if(!a||!b)return;
+      const focus=active&&(e[0]===active||e[1]===active),fade=active&&!focus;
+      ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+      ctx.globalAlpha=fade?.035:(focus?.9:(e[2]==="本季同队"?.18:.11));
+      ctx.strokeStyle=e[2]==="旧节目共演"?"#d9b466":e[2]==="职业圈层"?"#65b6dd":"#77716b";
+      ctx.lineWidth=focus?2:1;ctx.setLineDash(e[2]==="职业圈层"?[4,5]:[]);ctx.stroke();
+    });ctx.setLineDash([]);ctx.globalAlpha=1;
+    nodes.forEach(n=>{
+      const activeNode=n.id===(selected||hover),connected=!selected||n.id===selected||edges.some(e=>(e[0]===selected&&e[1]===n.id)||(e[1]===selected&&e[0]===n.id));
+      ctx.globalAlpha=connected?1:.18;ctx.beginPath();ctx.arc(n.x,n.y,activeNode?23:n.rad,0,Math.PI*2);
+      ctx.fillStyle=activeNode?teamInfo[n.team].color:"#111113";ctx.fill();
+      ctx.strokeStyle=teamInfo[n.team].color;ctx.lineWidth=activeNode?3:2;ctx.stroke();
+      ctx.fillStyle=activeNode?"#09090a":"#eeeae4";ctx.font=`${activeNode?"700":"600"} 12px ${getComputedStyle(document.body).fontFamily}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(n.name.slice(-2),n.x,n.y);
+      ctx.fillStyle="#aaa49d";ctx.font="10px sans-serif";ctx.fillText(n.team,n.x,n.y+33);
+    });ctx.globalAlpha=1;
+  }
+  function relationPanel(id){
+    const p=people.find(x=>x.id===id),rels=edges.filter(e=>e[0]===id||e[1]===id);
+    const byPerson=new Map();
+    rels.forEach(e=>{const other=e[0]===id?e[1]:e[0];if(!byPerson.has(other))byPerson.set(other,{other,types:new Set(),details:new Set()});const item=byPerson.get(other);item.types.add(e[2]);item.details.add(e[3]);});
+    const unique=[...byPerson.values()];
+    aside.innerHTML=`<div class="aside-kicker">${p.team} TEAM / SELECTED</div><div class="aside-name">${p.name}</div><div class="aside-meta">${p.role} · ${unique.length} 位直接关联嘉宾</div>
+      <div class="relation-list">${unique.map(e=>{const o=people.find(x=>x.id===e.other);return `<div class="rel"><b>${o.name}</b><div class="rel-types">${[...e.types].map(t=>`<span class="rel-type">${t}</span>`).join("")}</div>${[...e.details].join("；")}</div>`}).join("")}</div>
+      <div class="network-tip">操作：点击任意节点锁定关系；再次点击空白处可回到全图。移动端可直接轻触节点。</div>`;
+  }
+  function pick(ev){
+    const r=canvas.getBoundingClientRect(),x=ev.clientX-r.left,y=ev.clientY-r.top;
+    return nodes.find(n=>Math.hypot(n.x-x,n.y-y)<28);
+  }
+  canvas.addEventListener("mousemove",e=>{const n=pick(e);hover=n?.id||null;canvas.style.cursor=n?"pointer":"crosshair";draw()});
+  canvas.addEventListener("mouseleave",()=>{hover=null;draw()});
+  canvas.addEventListener("click",e=>{const n=pick(e);selected=n?.id||null;if(selected)relationPanel(selected);else aside.innerHTML=`<div class="aside-kicker">NETWORK READY</div><div class="aside-name">选择一位玩家</div><div class="aside-meta">点击节点查看他的直接关系</div><div class="network-tip">灰线为本季同队，金线为旧节目共演，蓝色虚线为职业圈层。</div>`;draw()});
+  new ResizeObserver(layout).observe(wrap);relationPanel(selected);
+  </script>
+</body>
+</html>
